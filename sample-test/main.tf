@@ -37,6 +37,10 @@ resource "google_compute_instance" "vm_instance" {
       nat_ip = google_compute_address.vm_static_ip.address
     }
   }
+
+  provisioner "local-exec" {
+    command = "echo ${google_compute_instance.vm_instance.name}:  ${google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip} >> ip_address.txt"
+  }
 }
 
 resource "google_compute_address" "vm_static_ip" {
